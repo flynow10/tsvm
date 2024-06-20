@@ -35,6 +35,17 @@ export class Assembler {
     return buff;
   }
 
+  public asSymbolTable() {
+    let st = "";
+    for (const [symbol, location] of Object.entries(this.symbolTable)) {
+      st += `// ${symbol}: ${location
+        .toString(16)
+        .padStart(4, "0")
+        .toUpperCase()}\n`;
+    }
+    return st;
+  }
+
   public numLitToInt(numStr: string): number {
     let num = NaN;
     if (numStr.startsWith("#")) num = parseInt(numStr.slice(1), 10);
@@ -250,7 +261,7 @@ export class Assembler {
           const subToken = this.expectToken(Assembler.NUMBER_TYPES);
           const num = this.numLitToInt(subToken.text);
           for (let _ = 0; _ < num; _++) {
-            machineCode.push(0b0111_0111_0111_0111);
+            machineCode.push(0);
           }
           locationCounter += num;
           break;

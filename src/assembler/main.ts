@@ -16,3 +16,7 @@ const inputFile = readFileSync(getPath(args[0]), "utf-8");
 const machineCode = assembler.loadProgram(inputFile).asArrayBuffer();
 
 writeFileSync(getPath(args[1]), new DataView(machineCode));
+
+// const symbolTable = assembler.loadProgram(inputFile).asSymbolTable();
+
+// writeFileSync(getPath(args[1]), symbolTable);

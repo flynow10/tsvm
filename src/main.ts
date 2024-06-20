@@ -2,6 +2,7 @@ import { CPU } from "./cpu";
 import { readFileSync } from "fs";
 import path from "path";
 import { Terminal } from "./IO/terminal";
+import { getRawInput, keyIn, prompt } from "readline-sync";
 
 const args = process.argv.slice(2);
 
@@ -12,10 +13,3 @@ const bootImage = readFileSync(bootPath);
 
 vm.loadImage(bootImage);
 vm.run();
-
-function indexBy<T extends Record<string, any>>(array: T[], prop: keyof T) {
-  return array.reduce<Record<string, T>>((output, item) => {
-    output[item[prop]] = item;
-    return output;
-  }, {});
-}

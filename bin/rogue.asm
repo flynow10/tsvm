@@ -89,7 +89,7 @@ RIGHT
 
 MOVE
     ; wrap X and Y coordinates
-    AND R1, R1, x001F ; x % 32
+    AND R1, R1, #-1 ; x % 32
     AND R2, R2, x000F ; y % 16 
     STR R1, R6, #-1    ; save x on stack
     STR R2, R6, #-2    ; save y on stack 

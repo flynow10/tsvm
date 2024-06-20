@@ -47,6 +47,7 @@ export class Lexer {
     "br",
     "brz",
     "brp",
+    "brn",
     "brnz",
     "brnp",
     "brzp",
@@ -175,7 +176,8 @@ export class Lexer {
       }
       currentPosition++;
       if (currentToken === '"') {
-        let stringLiteral = "";
+        let stringLiteralChars = [];
+
         while (
           input[currentPosition] !== '"' &&
           input[currentPosition] !== undefined &&
@@ -194,19 +196,19 @@ export class Lexer {
               e: String.fromCharCode(27),
             }[escapeSequence];
 
-            if (escaped === undefined) {
+            if (escapeSequence === undefined) {
               throw new Error(`Unsupported escape character ${escapeSequence}`);
             }
-            stringLiteral += escaped;
+            stringLiteralChars.push(escaped);
           } else {
-            stringLiteral += input[currentPosition];
+            stringLiteralChars.push(input[currentPosition]);
           }
           currentPosition++;
         }
         currentPosition++;
         out.push({
           type: TokenType.STRING,
-          text: stringLiteral,
+          text: stringLiteralChars.join(""),
         });
         continue;
       }
