@@ -1,0 +1,14 @@
+.orig x3000
+
+MAIN
+  LEA R0, CLEAR_STRING
+  PUTS
+  
+  LEA R0, MESSAGE
+  PUTS
+
+  HALT
+
+  CLEAR_STRING .STRINGZ "\e[2J\e[H\e[3J"
+  MESSAGE .STRINGZ "\n\nTest\n"
+.END
